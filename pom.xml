@@ -28,6 +28,13 @@
             <scope>test</scope>
         </dependency>
 
+        <!--        Swagger UI dependency-->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>1.6.11</version>
+        </dependency>
+
         <!--        Spring Data JPA & PostgreSQL dependency-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -59,17 +66,6 @@
 
     <build>
         <plugins>
-            <!--			Liquibase plugin-->
-            <plugin>
-                <groupId>org.liquibase</groupId>
-                <artifactId>liquibase-maven-plugin</artifactId>
-                <version>4.5.0</version>
-                <configuration>
-                    <propertyFile>
-                        src/main/resources/application.properties
-                    </propertyFile>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
