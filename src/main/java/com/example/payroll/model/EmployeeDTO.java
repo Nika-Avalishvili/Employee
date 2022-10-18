@@ -1,4 +1,4 @@
-package com.example.payroll.Models;
+package com.example.payroll.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class EmployeesDTO {
+public class EmployeeDTO {
 
     private Long employee_id;
 
