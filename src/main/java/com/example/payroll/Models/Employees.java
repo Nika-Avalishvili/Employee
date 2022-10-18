@@ -16,7 +16,7 @@ import javax.persistence.Id;
 public class Employees {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long employee_id;
 
     private String first_name;

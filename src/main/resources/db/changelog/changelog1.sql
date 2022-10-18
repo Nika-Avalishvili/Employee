@@ -1,7 +1,7 @@
 -- liquibase formatted sql
 
 -- changeset nika.avalishvili:1
-CREATE TABLE employees (employee_id INT PRIMARY KEY,
+CREATE TABLE employees (employee_id SERIAL PRIMARY KEY,
                         first_name VARCHAR(255),
                         last_name VARCHAR(255),
                         department VARCHAR(255),
