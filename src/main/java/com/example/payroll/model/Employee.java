@@ -17,7 +17,7 @@ public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long employee_id;
+    private Long id;
 
     private String first_name;
     private String last_name;
@@ -25,7 +25,7 @@ public class Employee {
     private String positions;
     private String email;
 
-    private Boolean employee_status;
-    private Boolean pf_status;
+    private Boolean is_active;
+    private Boolean is_pensions_payer;
 }
 

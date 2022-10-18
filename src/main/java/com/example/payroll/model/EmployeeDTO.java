@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class EmployeeDTO {
 
-    private Long employee_id;
+    private Long id;
 
     private String first_name;
     private String last_name;
@@ -17,6 +17,6 @@ public class EmployeeDTO {
     private String positions;
     private String email;
 
-    private Boolean employee_status;
-    private Boolean pf_status;
+    private Boolean is_active;
+    private Boolean is_pensions_payer;
 }
