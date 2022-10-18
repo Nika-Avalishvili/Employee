@@ -15,16 +15,14 @@ public class EmployeeService {
     private final EmployeeRepository employeeRepository;
     private final EmployeeMapper employeeMapper;
 
-    public EmployeeDTO createEmployee(EmployeeDTO employeeDTO){
+    public EmployeeDTO createAndUpdateEmployee(EmployeeDTO employeeDTO){
         Employee employee = employeeMapper.dtoToEntity(employeeDTO);
         employeeRepository.save(employee);
         return employeeMapper.entityToDto(employee);
     }
 
-    public EmployeeDTO updateEmployee(EmployeeDTO employeeDTO){
-        Employee employee = employeeMapper.dtoToEntity(employeeDTO);
-        employeeRepository.save(employee);
-        return employeeMapper.entityToDto(employee);
+    public void deleteEmployee(Long id){
+        employeeRepository.deleteById(id);
     }
 
     public List<EmployeeDTO> findAllEmployees(){

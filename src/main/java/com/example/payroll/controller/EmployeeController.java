@@ -3,27 +3,29 @@ package com.example.payroll.controller;
 import com.example.payroll.model.EmployeeDTO;
 import com.example.payroll.repository.EmployeeRepository;
 import com.example.payroll.service.EmployeeService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 public class EmployeeController {
 
-    @Autowired
-    private EmployeeService employeeService;
-    @Autowired
-    private EmployeeRepository employeeRepository;
+
+    private final EmployeeService employeeService;
+
+    private final EmployeeRepository employeeRepository;
 
     @PostMapping("/employees")
     public @ResponseBody EmployeeDTO addEmployee(@RequestBody EmployeeDTO employeeDTO){
-        return employeeService.createEmployee(employeeDTO);
+        return employeeService.createAndUpdateEmployee(employeeDTO);
     }
 
     @PutMapping("/employees")
     public EmployeeDTO updateEmployee(@RequestBody EmployeeDTO employeeDTO){
-        return employeeService.updateEmployee(employeeDTO);
+        return employeeService.createAndUpdateEmployee(employeeDTO);
     }
 
     @GetMapping("/employees")
@@ -31,13 +33,13 @@ public class EmployeeController {
         return employeeService.findAllEmployees();
     }
 
-    @GetMapping("/employees/{Id}")
-    public EmployeeDTO findById(@PathVariable (value="Id") Long id) {
+    @GetMapping("/employees/{id}")
+    public EmployeeDTO findById(@PathVariable Long id) {
         return employeeService.findEmployeeById(id);
     }
 
     @DeleteMapping("/employees")
     public void deleteEmployees(@RequestParam (value = "id") Long id) {
-        employeeRepository.deleteById(id);
+        employeeService.deleteEmployee(id);
     }
 }
