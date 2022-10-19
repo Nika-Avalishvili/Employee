@@ -1,5 +1,6 @@
 package com.example.employee.model;
 
+import com.example.employee.builder.Builder;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,5 +28,15 @@ public class Employee {
 
     private Boolean is_active;
     private Boolean is_pensions_payer;
+
+    public Employee(Builder builder){
+        this.id = builder.getId();
+        this.first_name = builder.getFirst_name();
+        this.last_name = builder.getLast_name();
+        this.department = builder.getDepartment();
+        this.positions = builder.getPositions();
+        this.is_active = builder.getIs_active();
+        this.is_pensions_payer = builder.getIs_pensions_payer();
+    }
 }
 
