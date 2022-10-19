@@ -1,30 +1,51 @@
 package com.example.employee.service;
 
 import com.example.employee.model.EmployeeDTO;
+import com.example.employee.model.EmployeeMapper;
+import com.example.employee.repository.EmployeeRepository;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.BootstrapWith;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-@SpringBootTest
+import static org.mockito.ArgumentMatchers.any;
+
+@ExtendWith(MockitoExtension.class)
 class EmployeeServiceTest {
 
     @Mock
+    EmployeeRepository employeeRepository;
+
+
+    EmployeeMapper employeeMapper;
+
     EmployeeService employeeService;
+
+
+    @BeforeEach
+    void setUp(){
+        employeeMapper = new EmployeeMapper();
+        employeeService = new EmployeeService(employeeRepository, employeeMapper);
+    }
+
 
     @Test
     void createAndUpdateEmployee() {
         EmployeeDTO employeeDTO = new EmployeeDTO(15L, "Ilia","Tchavtchavadze", "Education", "Founder of education council", "ilia.tchavtchavadze@gmail.com", true, true);
-        employeeService.createAndUpdateEmployee(employeeDTO);
 
-        Assertions.assertTrue(employeeService.findAllEmployees().stream()
-                .anyMatch(employee -> employee.getFirst_name().equals("Ilia") &&
-                        employee.getLast_name().equals("Tchavtchavadze") &&
-                        employee.getDepartment().equals("Education") &&
-                        employee.getPositions().equals("Founder of education council") &&
-                        employee.getEmail().equals("ilia.tchavtchavadze@gmail.com") &&
-                        employee.getIs_active().equals(true) &&
-                        employee.getIs_pensions_payer().equals(true)));
+        Mockito.when(employeeRepository.save(any())).thenAnswer( invocationOnMock -> invocationOnMock.getArgument(0));
+
+        EmployeeDTO actualDTO = employeeService.createAndUpdateEmployee(employeeDTO);
+
+        Assertions.assertEquals(employeeDTO, actualDTO);
+
 
     }
 
