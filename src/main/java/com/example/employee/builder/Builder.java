@@ -2,8 +2,12 @@ package com.example.employee.builder;
 
 import com.example.employee.model.Employee;
 import com.example.employee.model.EmployeeDTO;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@AllArgsConstructor
+@NoArgsConstructor
 public class Builder {
     @Getter
     private Long id;
