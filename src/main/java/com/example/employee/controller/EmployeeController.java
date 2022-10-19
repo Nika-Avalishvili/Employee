@@ -1,10 +1,8 @@
-package com.example.payroll.controller;
+package com.example.employee.controller;
 
-import com.example.payroll.model.EmployeeDTO;
-import com.example.payroll.repository.EmployeeRepository;
-import com.example.payroll.service.EmployeeService;
+import com.example.employee.model.EmployeeDTO;
+import com.example.employee.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,10 +11,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class EmployeeController {
 
-
     private final EmployeeService employeeService;
-
-    private final EmployeeRepository employeeRepository;
 
     @PostMapping("/employees")
     public @ResponseBody EmployeeDTO addEmployee(@RequestBody EmployeeDTO employeeDTO){
