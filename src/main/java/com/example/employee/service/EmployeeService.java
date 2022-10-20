@@ -1,9 +1,9 @@
-package com.example.payroll.service;
+package com.example.employee.service;
 
-import com.example.payroll.model.Employee;
-import com.example.payroll.model.EmployeeDTO;
-import com.example.payroll.model.EmployeeMapper;
-import com.example.payroll.repository.EmployeeRepository;
+import com.example.employee.model.Employee;
+import com.example.employee.model.EmployeeDTO;
+import com.example.employee.model.EmployeeMapper;
+import com.example.employee.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
