@@ -12,6 +12,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -48,7 +49,7 @@ class EmployeeServiceTest {
     void findAllEmployees() {
         Employee emp1 = new Employee(5L,"Nika","Avalishvili","D1","P1","as@gmail.com",true, true);
         Employee emp2 = new Employee(6L,"Giorgi","Margvelashvili","D2","P2","as@gmail.com",true, true);
-        Mockito.when(employeeRepository.findAll()).thenReturn(Stream.of(emp1,emp2).collect(Collectors.toList()));
+        Mockito.when(employeeRepository.findAll()).thenReturn(List.of(emp1,emp2));
 
 
         Assertions.assertEquals(2, employeeService.findAllEmployees().size());
