@@ -1,5 +1,6 @@
 package com.example.employee.service;
 
+import com.example.employee.model.Employee;
 import com.example.employee.model.EmployeeDTO;
 import com.example.employee.model.EmployeeMapper;
 import com.example.employee.repository.EmployeeRepository;
@@ -10,24 +11,21 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.BootstrapWith;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.times;
 
 @ExtendWith(MockitoExtension.class)
 class EmployeeServiceTest {
 
     @Mock
     EmployeeRepository employeeRepository;
-
-
     EmployeeMapper employeeMapper;
-
     EmployeeService employeeService;
-
 
     @BeforeEach
     void setUp(){
@@ -35,50 +33,49 @@ class EmployeeServiceTest {
         employeeService = new EmployeeService(employeeRepository, employeeMapper);
     }
 
-
     @Test
     void createAndUpdateEmployee() {
-        EmployeeDTO employeeDTO = new EmployeeDTO(15L, "Ilia","Tchavtchavadze", "Education", "Founder of education council", "ilia.tchavtchavadze@gmail.com", true, true);
-
+        EmployeeDTO employeeDTO = new EmployeeDTO(1L, "Ilia","Tchavtchavadze", "Education", "Founder of education council", "ilia.tchavtchavadze@gmail.com", true, true);
         Mockito.when(employeeRepository.save(any())).thenAnswer( invocationOnMock -> invocationOnMock.getArgument(0));
 
         EmployeeDTO actualDTO = employeeService.createAndUpdateEmployee(employeeDTO);
 
         Assertions.assertEquals(employeeDTO, actualDTO);
-
-
+        System.out.println("Create and Update test passed successfully!");
     }
 
     @Test
     void findAllEmployees() {
-        Assertions.assertFalse(employeeService.findAllEmployees().isEmpty());
-        Assertions.assertEquals(1,employeeService.findAllEmployees().size());
+        Employee emp1 = new Employee(5L,"Nika","Avalishvili","D1","P1","as@gmail.com",true, true);
+        Employee emp2 = new Employee(6L,"Giorgi","Margvelashvili","D2","P2","as@gmail.com",true, true);
+        Mockito.when(employeeRepository.findAll()).thenReturn(Stream.of(emp1,emp2).collect(Collectors.toList()));
+
+
+        Assertions.assertEquals(2, employeeService.findAllEmployees().size());
+        System.out.println("Find All Employees test passed successfully!");
     }
 
 
     @Test
     void findEmployeeById() {
-        Assertions.assertTrue(employeeService.findEmployeeById(15L).getFirst_name().equals("Ilia"));
-        Assertions.assertTrue(employeeService.findEmployeeById(15L).getLast_name().equals("Tchavtchavadze"));
-        Assertions.assertTrue(employeeService.findEmployeeById(15L).getDepartment().equals("Education"));
-        Assertions.assertTrue(employeeService.findEmployeeById(15L).getPositions().equals("Founder of education council"));
-        Assertions.assertTrue(employeeService.findEmployeeById(15L).getEmail().equals("ilia.tchavtchavadze@gmail.com"));
-        Assertions.assertTrue(employeeService.findEmployeeById(15L).getIs_active().equals(true));
-        Assertions.assertTrue(employeeService.findEmployeeById(15L).getIs_pensions_payer().equals(true));
+        Employee emp1 = new Employee(5L,"Nika","Avalishvili","D1","P1","as@gmail.com",true, true);
+        Employee emp2 = new Employee(6L,"Giorgi","Margvelashvili","D2","P2","as@gmail.com",true, true);
+
+        Mockito.when(employeeRepository.findById(anyLong())).thenAnswer(invocationOnMock -> Stream.of(emp1, emp2).filter(e -> e.getId().equals(invocationOnMock.getArgument(0))).findFirst());
+
+        Assertions.assertEquals("Avalishvili",employeeService.findEmployeeById(5L).getLast_name());
+        Assertions.assertEquals("Giorgi",employeeService.findEmployeeById(6L).getFirst_name());
+
+        System.out.println("Find Employee by id test passed successfully!");
     }
 
     @Test
     void deleteEmployee() {
-        employeeService.deleteEmployee(15L);
+        Employee emp1 = new Employee(5L,"Nika","Avalishvili","D1","P1","as@gmail.com",true, true);
+        employeeService.deleteEmployee(5L);
+        Mockito.verify(employeeRepository,times(1)).deleteById(5L);
 
-        Assertions.assertFalse(employeeService.findAllEmployees().stream()
-                .anyMatch(employee -> employee.getFirst_name().equals("Ilia") &&
-                        employee.getLast_name().equals("Tchavtchavadze") &&
-                        employee.getDepartment().equals("Education") &&
-                        employee.getPositions().equals("Founder of education council") &&
-                        employee.getEmail().equals("ilia.tchavtchavadze@gmail.com") &&
-                        employee.getIs_active().equals(true) &&
-                        employee.getIs_pensions_payer().equals(true)));
+        System.out.println("Delete Employee test passed successfully!");
     }
 
 }

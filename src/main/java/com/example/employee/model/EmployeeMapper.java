@@ -8,16 +8,16 @@ import java.util.stream.Collectors;
 @Component
 public class EmployeeMapper {
     public EmployeeDTO entityToDto(Employee employee){
-        EmployeeDTO employeeDTO = new EmployeeDTO();
-        employeeDTO.setId(employee.getId());
-        employeeDTO.setFirst_name(employee.getFirst_name());
-        employeeDTO.setLast_name(employee.getLast_name());
-        employeeDTO.setDepartment(employee.getDepartment());
-        employeeDTO.setPositions(employee.getPositions());
-        employeeDTO.setEmail(employee.getEmail());
-        employeeDTO.setIs_active(employee.getIs_active());
-        employeeDTO.setIs_pensions_payer(employee.getIs_pensions_payer());
-        return employeeDTO;
+        return new EmployeeDTO.EmployeeDTOBuilder(
+                employee.getId(),
+                employee.getFirst_name(),
+                employee.getLast_name(),
+                employee.getDepartment(),
+                employee.getPositions(),
+                employee.getEmail(),
+                employee.getIs_active(),
+                employee.getIs_pensions_payer())
+                .buildEmployeeDTO();
     }
 
     public List<EmployeeDTO> entityToDto(List<Employee> employees){
@@ -25,16 +25,16 @@ public class EmployeeMapper {
     }
 
     public Employee dtoToEntity(EmployeeDTO employeeDTO){
-        Employee employee = new Employee();
-        employee.setId(employeeDTO.getId());
-        employee.setFirst_name(employeeDTO.getFirst_name());
-        employee.setLast_name(employeeDTO.getLast_name());
-        employee.setDepartment(employeeDTO.getDepartment());
-        employee.setPositions(employeeDTO.getPositions());
-        employee.setEmail(employeeDTO.getEmail());
-        employee.setIs_active(employeeDTO.getIs_active());
-        employee.setIs_pensions_payer(employeeDTO.getIs_pensions_payer());
-        return employee;
+        return new Employee.EmployeeBuilder(
+                                employeeDTO.getId(),
+                                employeeDTO.getFirst_name(),
+                                employeeDTO.getLast_name(),
+                                employeeDTO.getDepartment(),
+                                employeeDTO.getPositions(),
+                                employeeDTO.getEmail(),
+                                employeeDTO.getIs_active(),
+                                employeeDTO.getIs_pensions_payer()
+                                ).buildEmployee();
     }
 
     public List<Employee> dtoToEntity(List<EmployeeDTO> employeeDTO){
