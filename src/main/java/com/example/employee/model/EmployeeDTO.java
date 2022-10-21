@@ -32,6 +32,7 @@ public class EmployeeDTO {
 
 
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class EmployeeDTOBuilder {
         private Long id;
         private String first_name;
