@@ -1,4 +1,4 @@
-name: Automate tests before pushing branches
+name: Automated_tests
 
 on:
   push:
