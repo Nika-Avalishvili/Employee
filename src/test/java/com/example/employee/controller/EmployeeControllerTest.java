@@ -5,8 +5,6 @@ import com.example.employee.repository.EmployeeRepository;
 import com.example.employee.service.EmployeeService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,13 +30,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class EmployeeControllerTest {
 
     @Autowired
-    MockMvc mockMvc;
+    private MockMvc mockMvc;
 
     @Autowired
-    EmployeeService employeeService;
+    private EmployeeService employeeService;
 
     @Autowired
-    ObjectMapper objectMapper;
+    private ObjectMapper objectMapper;
 
     @Autowired
     private EmployeeRepository employeeRepository;
@@ -51,13 +49,13 @@ class EmployeeControllerTest {
     @Test
     void getAllEmployees() throws Exception {
         EmployeeDTO employeeDTO = new EmployeeDTO.EmployeeDTOBuilder()
-                .first_name("Nika")
-                .last_name("Avalishvili")
+                .firstName("Nika")
+                .lastName("Avalishvili")
                 .department("Business development")
                 .positions("Business builder")
                 .email("avalishvili.nick@gmail.com")
-                .is_active(true)
-                .is_pensions_payer(true)
+                .isActive(true)
+                .isPensionsPayer(true)
                 .buildEmployeeDTO();
         employeeService.createAndUpdateEmployee(employeeDTO);
         List<EmployeeDTO> expectedEmployeeDTOList = List.of(employeeDTO);
@@ -85,13 +83,13 @@ class EmployeeControllerTest {
     @Test
     void getEmployeeById() throws Exception {
         EmployeeDTO employeeDTO = new EmployeeDTO.EmployeeDTOBuilder()
-                .first_name("Nika")
-                .last_name("Avalishvili")
+                .firstName("Nika")
+                .lastName("Avalishvili")
                 .department("Business development")
                 .positions("Business builder")
                 .email("avalishvili.nick@gmail.com")
-                .is_active(true)
-                .is_pensions_payer(true)
+                .isActive(true)
+                .isPensionsPayer(true)
                 .buildEmployeeDTO();
         Long id = employeeService.createAndUpdateEmployee(employeeDTO).getId();
 
@@ -111,19 +109,17 @@ class EmployeeControllerTest {
     @Test
     void addOrUpdateEmployee() throws Exception {
         EmployeeDTO employeeDTO = new EmployeeDTO.EmployeeDTOBuilder()
-                .first_name("Harry")
-                .last_name("Potter")
+                .firstName("Harry")
+                .lastName("Potter")
                 .department("Ministry of Magic")
                 .positions("Clerk")
                 .email("Harry.potter@ministryofmagic.com")
-                .is_active(true)
-                .is_pensions_payer(false)
+                .isActive(true)
+                .isPensionsPayer(false)
                 .buildEmployeeDTO();
         employeeService.createAndUpdateEmployee(employeeDTO);
 
-        objectMapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
-        ObjectWriter ow = objectMapper.writer().withDefaultPrettyPrinter();
-        String requestJson = ow.writeValueAsString(employeeDTO);
+        String requestJson = objectMapper.writeValueAsString(employeeDTO);
 
         String responseAsAString = mockMvc.perform(MockMvcRequestBuilders.post("/employee")
                         .contentType(APPLICATION_JSON)
@@ -143,22 +139,22 @@ class EmployeeControllerTest {
     @Test
     void deleteEmployee() throws Exception {
         EmployeeDTO employeeDTO1 = new EmployeeDTO.EmployeeDTOBuilder()
-                .first_name("Harry")
-                .last_name("Potter")
+                .firstName("Harry")
+                .lastName("Potter")
                 .department("Ministry of Magic")
                 .positions("Clerk")
                 .email("Harry.potter@ministryofmagic.com")
-                .is_active(true)
-                .is_pensions_payer(false)
+                .isActive(true)
+                .isPensionsPayer(false)
                 .buildEmployeeDTO();
         EmployeeDTO employeeDTO2 = new EmployeeDTO.EmployeeDTOBuilder()
-                .first_name("Albus")
-                .last_name("Dumbledor")
+                .firstName("Albus")
+                .lastName("Dumbledor")
                 .department("Hogwarts")
                 .positions("Director")
                 .email("Albus.dumbledore@hogwarts.com")
-                .is_active(true)
-                .is_pensions_payer(true)
+                .isActive(true)
+                .isPensionsPayer(true)
                 .buildEmployeeDTO();
         Long firstId = employeeService.createAndUpdateEmployee(employeeDTO1).getId();
         employeeService.createAndUpdateEmployee(employeeDTO2);

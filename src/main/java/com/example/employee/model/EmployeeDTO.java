@@ -10,24 +10,24 @@ import lombok.NoArgsConstructor;
 public class EmployeeDTO {
 
     private Long id;
-    private String first_name;
-    private String last_name;
+    private String firstName;
+    private String lastName;
     private String department;
     private String positions;
     private String email;
 
-    private Boolean is_active;
-    private Boolean is_pensions_payer;
+    private Boolean isActive;
+    private Boolean isPensionsPayer;
 
     public EmployeeDTO(EmployeeDTOBuilder employeeDTOBuilder) {
         this.id = employeeDTOBuilder.id;
-        this.first_name = employeeDTOBuilder.first_name;
-        this.last_name = employeeDTOBuilder.last_name;
+        this.firstName = employeeDTOBuilder.firstName;
+        this.lastName = employeeDTOBuilder.lastName;
         this.department = employeeDTOBuilder.department;
         this.positions = employeeDTOBuilder.positions;
         this.email = employeeDTOBuilder.email;
-        this.is_active = employeeDTOBuilder.is_active;
-        this.is_pensions_payer = employeeDTOBuilder.is_pensions_payer;
+        this.isActive = employeeDTOBuilder.isActive;
+        this.isPensionsPayer = employeeDTOBuilder.isPensionsPayer;
     }
 
 
@@ -35,27 +35,27 @@ public class EmployeeDTO {
     @NoArgsConstructor
     public static class EmployeeDTOBuilder {
         private Long id;
-        private String first_name;
-        private String last_name;
+        private String firstName;
+        private String lastName;
         private String department;
         private String positions;
         private String email;
 
-        private Boolean is_active;
-        private Boolean is_pensions_payer;
+        private Boolean isActive;
+        private Boolean isPensionsPayer;
 
         public EmployeeDTOBuilder id(Long id){
             this.id = id;
             return this;
         }
 
-        public EmployeeDTOBuilder first_name(String first_name){
-            this.first_name = first_name;
+        public EmployeeDTOBuilder firstName(String firstName){
+            this.firstName = firstName;
             return this;
         }
 
-        public EmployeeDTOBuilder last_name(String last_name){
-            this.last_name = last_name;
+        public EmployeeDTOBuilder lastName(String lastName){
+            this.lastName = lastName;
             return this;
         }
 
@@ -74,13 +74,13 @@ public class EmployeeDTO {
             return this;
         }
 
-        public EmployeeDTOBuilder is_active(boolean is_active){
-            this.is_active = is_active;
+        public EmployeeDTOBuilder isActive(boolean isActive){
+            this.isActive = isActive;
             return this;
         }
 
-        public EmployeeDTOBuilder is_pensions_payer(boolean is_pensions_payer){
-            this.is_pensions_payer = is_pensions_payer;
+        public EmployeeDTOBuilder isPensionsPayer(boolean isPensionsPayer){
+            this.isPensionsPayer = isPensionsPayer;
             return this;
         }
 

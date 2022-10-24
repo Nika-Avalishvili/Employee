@@ -63,8 +63,8 @@ class EmployeeServiceTest {
 
         Mockito.when(employeeRepository.findById(anyLong())).thenAnswer(invocationOnMock -> Stream.of(emp1, emp2).filter(e -> e.getId().equals(invocationOnMock.getArgument(0))).findFirst());
 
-        Assertions.assertEquals("Avalishvili",employeeService.findEmployeeById(5L).getLast_name());
-        Assertions.assertEquals("Giorgi",employeeService.findEmployeeById(6L).getFirst_name());
+        Assertions.assertEquals("Avalishvili",employeeService.findEmployeeById(5L).getLastName());
+        Assertions.assertEquals("Giorgi",employeeService.findEmployeeById(6L).getFirstName());
 
         System.out.println("Find Employee by id test passed successfully!");
     }
