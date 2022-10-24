@@ -10,13 +10,13 @@ public class EmployeeMapper {
     public EmployeeDTO entityToDto(Employee employee){
         return new EmployeeDTO.EmployeeDTOBuilder(
                 employee.getId(),
-                employee.getFirst_name(),
-                employee.getLast_name(),
+                employee.getFirstName(),
+                employee.getLastName(),
                 employee.getDepartment(),
                 employee.getPositions(),
                 employee.getEmail(),
-                employee.getIs_active(),
-                employee.getIs_pensions_payer())
+                employee.getIsActive(),
+                employee.getIsPensionsPayer())
                 .buildEmployeeDTO();
     }
 
@@ -27,13 +27,13 @@ public class EmployeeMapper {
     public Employee dtoToEntity(EmployeeDTO employeeDTO){
         return new Employee.EmployeeBuilder(
                                 employeeDTO.getId(),
-                                employeeDTO.getFirst_name(),
-                                employeeDTO.getLast_name(),
+                                employeeDTO.getFirstName(),
+                                employeeDTO.getLastName(),
                                 employeeDTO.getDepartment(),
                                 employeeDTO.getPositions(),
                                 employeeDTO.getEmail(),
-                                employeeDTO.getIs_active(),
-                                employeeDTO.getIs_pensions_payer()
+                                employeeDTO.getIsActive(),
+                                employeeDTO.getIsPensionsPayer()
                                 ).buildEmployee();
     }
 

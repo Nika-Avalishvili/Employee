@@ -34,7 +34,7 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/employee")
-    public void deleteEmployees(@RequestParam (value = "id") Long id) {
+    public void deleteEmployee(@RequestParam (value = "id") Long id) {
         employeeService.deleteEmployee(id);
     }
 }
