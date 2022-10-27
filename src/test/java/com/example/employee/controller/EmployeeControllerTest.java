@@ -48,7 +48,7 @@ class EmployeeControllerTest {
 
     @Test
     void getAllEmployees() throws Exception {
-        EmployeeDTO employeeDTO = new EmployeeDTO.EmployeeDTOBuilder()
+        EmployeeDTO employeeDTO = EmployeeDTO.builder()
                 .firstName("Nika")
                 .lastName("Avalishvili")
                 .department("Business development")
@@ -56,7 +56,7 @@ class EmployeeControllerTest {
                 .email("avalishvili.nick@gmail.com")
                 .isActive(true)
                 .isPensionsPayer(true)
-                .buildEmployeeDTO();
+                .build();
         employeeService.createAndUpdateEmployee(employeeDTO);
         List<EmployeeDTO> expectedEmployeeDTOList = List.of(employeeDTO);
 
@@ -82,7 +82,7 @@ class EmployeeControllerTest {
 
     @Test
     void getEmployeeById() throws Exception {
-        EmployeeDTO employeeDTO = new EmployeeDTO.EmployeeDTOBuilder()
+        EmployeeDTO employeeDTO = EmployeeDTO.builder()
                 .firstName("Nika")
                 .lastName("Avalishvili")
                 .department("Business development")
@@ -90,7 +90,7 @@ class EmployeeControllerTest {
                 .email("avalishvili.nick@gmail.com")
                 .isActive(true)
                 .isPensionsPayer(true)
-                .buildEmployeeDTO();
+                .build();
         Long id = employeeService.createAndUpdateEmployee(employeeDTO).getId();
 
         String responseAsAString = mockMvc.perform(MockMvcRequestBuilders.get("/employee/{id}", id))
@@ -108,7 +108,7 @@ class EmployeeControllerTest {
 
     @Test
     void addOrUpdateEmployee() throws Exception {
-        EmployeeDTO employeeDTO = new EmployeeDTO.EmployeeDTOBuilder()
+        EmployeeDTO employeeDTO = EmployeeDTO.builder()
                 .firstName("Harry")
                 .lastName("Potter")
                 .department("Ministry of Magic")
@@ -116,7 +116,7 @@ class EmployeeControllerTest {
                 .email("Harry.potter@ministryofmagic.com")
                 .isActive(true)
                 .isPensionsPayer(false)
-                .buildEmployeeDTO();
+                .build();
         employeeService.createAndUpdateEmployee(employeeDTO);
 
         String requestJson = objectMapper.writeValueAsString(employeeDTO);
@@ -138,7 +138,7 @@ class EmployeeControllerTest {
 
     @Test
     void deleteEmployee() throws Exception {
-        EmployeeDTO employeeDTO1 = new EmployeeDTO.EmployeeDTOBuilder()
+        EmployeeDTO employeeDTO1 = EmployeeDTO.builder()
                 .firstName("Harry")
                 .lastName("Potter")
                 .department("Ministry of Magic")
@@ -146,8 +146,8 @@ class EmployeeControllerTest {
                 .email("Harry.potter@ministryofmagic.com")
                 .isActive(true)
                 .isPensionsPayer(false)
-                .buildEmployeeDTO();
-        EmployeeDTO employeeDTO2 = new EmployeeDTO.EmployeeDTOBuilder()
+                .build();
+        EmployeeDTO employeeDTO2 = EmployeeDTO.builder()
                 .firstName("Albus")
                 .lastName("Dumbledor")
                 .department("Hogwarts")
@@ -155,7 +155,7 @@ class EmployeeControllerTest {
                 .email("Albus.dumbledore@hogwarts.com")
                 .isActive(true)
                 .isPensionsPayer(true)
-                .buildEmployeeDTO();
+                .build();
         Long firstId = employeeService.createAndUpdateEmployee(employeeDTO1).getId();
         employeeService.createAndUpdateEmployee(employeeDTO2);
 

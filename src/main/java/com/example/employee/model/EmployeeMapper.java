@@ -8,36 +8,37 @@ import java.util.stream.Collectors;
 @Component
 public class EmployeeMapper {
     public EmployeeDTO entityToDto(Employee employee){
-        return new EmployeeDTO.EmployeeDTOBuilder(
-                employee.getId(),
-                employee.getFirstName(),
-                employee.getLastName(),
-                employee.getDepartment(),
-                employee.getPositions(),
-                employee.getEmail(),
-                employee.getIsActive(),
-                employee.getIsPensionsPayer())
-                .buildEmployeeDTO();
+        EmployeeDTO employeeDTO = EmployeeDTO.builder()
+                .id(employee.getId())
+                .firstName(employee.getFirstName())
+                .lastName(employee.getLastName())
+                .department(employee.getDepartment())
+                .positions(employee.getPositions())
+                .email(employee.getEmail())
+                .isActive(employee.getIsActive())
+                .isPensionsPayer(employee.getIsPensionsPayer()).build();
+        return employeeDTO;
     }
 
     public List<EmployeeDTO> entityToDto(List<Employee> employees){
-        return employees.stream().map( x -> entityToDto(x)).collect(Collectors.toList());
+        return employees.stream().map(this::entityToDto).collect(Collectors.toList());
     }
 
     public Employee dtoToEntity(EmployeeDTO employeeDTO){
-        return new Employee.EmployeeBuilder(
-                                employeeDTO.getId(),
-                                employeeDTO.getFirstName(),
-                                employeeDTO.getLastName(),
-                                employeeDTO.getDepartment(),
-                                employeeDTO.getPositions(),
-                                employeeDTO.getEmail(),
-                                employeeDTO.getIsActive(),
-                                employeeDTO.getIsPensionsPayer()
-                                ).buildEmployee();
+        Employee employee = Employee.builder()
+                .id(employeeDTO.getId())
+                .firstName(employeeDTO.getFirstName())
+                .lastName(employeeDTO.getLastName())
+                .department(employeeDTO.getDepartment())
+                .positions(employeeDTO.getPositions())
+                .email(employeeDTO.getEmail())
+                .isActive(employeeDTO.getIsActive())
+                .isPensionsPayer(employeeDTO.getIsPensionsPayer())
+                .build();
+        return employee;
     }
 
     public List<Employee> dtoToEntity(List<EmployeeDTO> employeeDTO){
-        return employeeDTO.stream().map(x -> dtoToEntity(x)).collect(Collectors.toList());
+        return employeeDTO.stream().map(this::dtoToEntity).collect(Collectors.toList());
     }
 }
