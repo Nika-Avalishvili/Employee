@@ -19,6 +19,7 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String personalId;
     private String firstName;
     private String lastName;
     private String department;
@@ -28,68 +29,5 @@ public class Employee {
     private Boolean isActive;
     private Boolean isPensionsPayer;
 
-//    public Employee(Employee.EmployeeBuilder employeeBuilder) {
-//        this.id = employeeBuilder.id;
-//        this.firstName = employeeBuilder.firstName;
-//        this.lastName = employeeBuilder.lastName;
-//        this.department = employeeBuilder.department;
-//        this.positions = employeeBuilder.positions;
-//        this.email = employeeBuilder.email;
-//        this.isActive = employeeBuilder.isActive;
-//        this.isPensionsPayer = employeeBuilder.isPensionsPayer;
-//    }
-//
-//    @AllArgsConstructor
-//    @NoArgsConstructor
-//    public static class EmployeeBuilder{
-//        private Long id;
-//        private String firstName;
-//        private String lastName;
-//        private String department;
-//        private String positions;
-//        private String email;
-//
-//        private Boolean isActive;
-//        private Boolean isPensionsPayer;
-//
-//        public EmployeeBuilder id(Long id){
-//            this.id = id;
-//            return this;
-//        }
-//        public EmployeeBuilder firstName(String firstName){
-//            this.firstName = firstName;
-//            return this;
-//        }
-//        public EmployeeBuilder lastName(String lastName){
-//            this.lastName = lastName;
-//            return this;
-//        }
-//        public EmployeeBuilder department(String department){
-//            this.department = department;
-//            return this;
-//        }
-//        public EmployeeBuilder positions(String positions){
-//            this.positions = positions;
-//            return this;
-//        }
-//        public EmployeeBuilder email(String email){
-//            this.email = email;
-//            return this;
-//        }
-//
-//        public EmployeeBuilder isActive(boolean isActive){
-//            this.isActive = isActive;
-//            return this;
-//        }
-//
-//        public EmployeeBuilder isPensionsPayer(boolean isPensionsPayer){
-//            this.isPensionsPayer = isPensionsPayer;
-//            return this;
-//        }
-//
-//        public Employee buildEmployee(){
-//            return new Employee(this);
-//        }
-//    }
 }
 

@@ -35,7 +35,7 @@ class EmployeeServiceTest {
 
     @Test
     void createAndUpdateEmployee() {
-        EmployeeDTO employeeDTO = new EmployeeDTO(1L, "Ilia","Tchavtchavadze", "Education", "Founder of education council", "ilia.tchavtchavadze@gmail.com", true, true);
+        EmployeeDTO employeeDTO = new EmployeeDTO(1L,"01902237489", "Ilia","Tchavtchavadze", "Education", "Founder of education council", "ilia.tchavtchavadze@gmail.com", true, true);
         Mockito.when(employeeRepository.save(any())).thenAnswer( invocationOnMock -> invocationOnMock.getArgument(0));
 
         EmployeeDTO actualDTO = employeeService.createAndUpdateEmployee(employeeDTO);
@@ -46,8 +46,8 @@ class EmployeeServiceTest {
 
     @Test
     void findAllEmployees() {
-        Employee emp1 = new Employee(5L,"Nika","Avalishvili","D1","P1","as@gmail.com",true, true);
-        Employee emp2 = new Employee(6L,"Giorgi","Margvelashvili","D2","P2","as@gmail.com",true, true);
+        Employee emp1 = new Employee(5L,"01902237489","Nika","Avalishvili","D1","P1","as@gmail.com",true, true);
+        Employee emp2 = new Employee(6L,"01902237489","Giorgi","Margvelashvili","D2","P2","as@gmail.com",true, true);
         Mockito.when(employeeRepository.findAll()).thenReturn(List.of(emp1,emp2));
 
 
@@ -58,8 +58,8 @@ class EmployeeServiceTest {
 
     @Test
     void findEmployeeById() {
-        Employee emp1 = new Employee(5L,"Nika","Avalishvili","D1","P1","as@gmail.com",true, true);
-        Employee emp2 = new Employee(6L,"Giorgi","Margvelashvili","D2","P2","as@gmail.com",true, true);
+        Employee emp1 = new Employee(5L,"01902237489","Nika","Avalishvili","D1","P1","as@gmail.com",true, true);
+        Employee emp2 = new Employee(6L,"01902237459","Giorgi","Margvelashvili","D2","P2","as@gmail.com",true, true);
 
         Mockito.when(employeeRepository.findById(anyLong())).thenAnswer(invocationOnMock -> Stream.of(emp1, emp2).filter(e -> e.getId().equals(invocationOnMock.getArgument(0))).findFirst());
 
@@ -71,7 +71,7 @@ class EmployeeServiceTest {
 
     @Test
     void deleteEmployee() {
-        Employee emp1 = new Employee(5L,"Nika","Avalishvili","D1","P1","as@gmail.com",true, true);
+        Employee emp1 = new Employee(5L,"01902237489","Nika","Avalishvili","D1","P1","as@gmail.com",true, true);
         employeeService.deleteEmployee(5L);
         Mockito.verify(employeeRepository,times(1)).deleteById(5L);
 
