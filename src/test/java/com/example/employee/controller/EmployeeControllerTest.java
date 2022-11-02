@@ -49,7 +49,6 @@ class EmployeeControllerTest {
     @Test
     void getAllEmployees() throws Exception {
         EmployeeDTO employeeDTO = EmployeeDTO.builder()
-                .personalId("17289910220")
                 .firstName("Nika")
                 .lastName("Avalishvili")
                 .department("Business development")
@@ -84,7 +83,6 @@ class EmployeeControllerTest {
     @Test
     void getEmployeeById() throws Exception {
         EmployeeDTO employeeDTO = EmployeeDTO.builder()
-                .personalId("17289910220")
                 .firstName("Nika")
                 .lastName("Avalishvili")
                 .department("Business development")
@@ -111,7 +109,6 @@ class EmployeeControllerTest {
     @Test
     void addOrUpdateEmployee() throws Exception {
         EmployeeDTO employeeDTO = EmployeeDTO.builder()
-                .personalId("17289910220")
                 .firstName("Harry")
                 .lastName("Potter")
                 .department("Ministry of Magic")
@@ -142,7 +139,6 @@ class EmployeeControllerTest {
     @Test
     void deleteEmployee() throws Exception {
         EmployeeDTO employeeDTO1 = EmployeeDTO.builder()
-                .personalId("17289910220")
                 .firstName("Harry")
                 .lastName("Potter")
                 .department("Ministry of Magic")
@@ -152,7 +148,6 @@ class EmployeeControllerTest {
                 .isPensionsPayer(false)
                 .build();
         EmployeeDTO employeeDTO2 = EmployeeDTO.builder()
-                .personalId("15789910228")
                 .firstName("Albus")
                 .lastName("Dumbledor")
                 .department("Hogwarts")

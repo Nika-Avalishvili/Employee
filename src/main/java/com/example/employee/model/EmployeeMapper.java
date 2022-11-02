@@ -10,7 +10,6 @@ public class EmployeeMapper {
     public EmployeeDTO entityToDto(Employee employee){
         EmployeeDTO employeeDTO = EmployeeDTO.builder()
                 .id(employee.getId())
-                .personalId(employee.getPersonalId())
                 .firstName(employee.getFirstName())
                 .lastName(employee.getLastName())
                 .department(employee.getDepartment())
@@ -28,7 +27,6 @@ public class EmployeeMapper {
     public Employee dtoToEntity(EmployeeDTO employeeDTO){
         Employee employee = Employee.builder()
                 .id(employeeDTO.getId())
-                .personalId(employeeDTO.getPersonalId())
                 .firstName(employeeDTO.getFirstName())
                 .lastName(employeeDTO.getLastName())
                 .department(employeeDTO.getDepartment())

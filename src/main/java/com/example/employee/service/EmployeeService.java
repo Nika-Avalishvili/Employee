@@ -17,7 +17,7 @@ public class EmployeeService {
 
     public EmployeeDTO createAndUpdateEmployee(EmployeeDTO employeeDTO){
         Employee employee = employeeMapper.dtoToEntity(employeeDTO);
-        if (employeeRepository.findByPersonalId(employeeDTO.getPersonalId()) == null){
+        if (employeeRepository.findByEmail(employeeDTO.getEmail()) == null){
         employeeRepository.save(employee);
         return employeeMapper.entityToDto(employee);
         } else {
