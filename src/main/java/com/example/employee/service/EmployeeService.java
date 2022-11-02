@@ -17,8 +17,12 @@ public class EmployeeService {
 
     public EmployeeDTO createAndUpdateEmployee(EmployeeDTO employeeDTO){
         Employee employee = employeeMapper.dtoToEntity(employeeDTO);
+        if (employeeRepository.findByEmail(employeeDTO.getEmail()) == null){
         employeeRepository.save(employee);
         return employeeMapper.entityToDto(employee);
+        } else {
+            return employeeDTO;
+        }
     }
 
     public void deleteEmployee(Long id){

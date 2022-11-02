@@ -8,32 +8,33 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/employee")
 @RequiredArgsConstructor
 public class EmployeeController {
 
     private final EmployeeService employeeService;
 
-    @PostMapping("/employee")
+    @PostMapping
     public @ResponseBody EmployeeDTO addEmployee(@RequestBody EmployeeDTO employeeDTO){
         return employeeService.createAndUpdateEmployee(employeeDTO);
     }
 
-    @PutMapping("/employee")
+    @PutMapping
     public EmployeeDTO updateEmployee(@RequestBody EmployeeDTO employeeDTO){
         return employeeService.createAndUpdateEmployee(employeeDTO);
     }
 
-    @GetMapping("/employee")
+    @GetMapping
     public List<EmployeeDTO> getAllEmployees(){
         return employeeService.findAllEmployees();
     }
 
-    @GetMapping("/employee/{id}")
+    @GetMapping("/{id}")
     public EmployeeDTO findById(@PathVariable Long id) {
         return employeeService.findEmployeeById(id);
     }
 
-    @DeleteMapping("/employee")
+    @DeleteMapping
     public void deleteEmployee(@RequestParam (value = "id") Long id) {
         employeeService.deleteEmployee(id);
     }
