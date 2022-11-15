@@ -15,27 +15,28 @@ public class EmployeeService {
     private final EmployeeRepository employeeRepository;
     private final EmployeeMapper employeeMapper;
 
-    public EmployeeDTO createAndUpdateEmployee(EmployeeDTO employeeDTO){
+    public EmployeeDTO createAndUpdateEmployee(EmployeeDTO employeeDTO) {
         Employee employee = employeeMapper.dtoToEntity(employeeDTO);
-        if (employeeRepository.findByEmail(employeeDTO.getEmail()) == null){
-        employeeRepository.save(employee);
-        return employeeMapper.entityToDto(employee);
+        if (employeeRepository.findByEmail(employeeDTO.getEmail()) == null) {
+            employeeRepository.save(employee);
+            return employeeMapper.entityToDto(employee);
         } else {
             return employeeDTO;
         }
     }
 
-    public void deleteEmployee(Long id){
+    public void deleteEmployee(Long id) {
         employeeRepository.deleteById(id);
     }
 
-    public List<EmployeeDTO> findAllEmployees(){
+    public List<EmployeeDTO> findAllEmployees() {
         List<Employee> findAll = employeeRepository.findAll();
         return employeeMapper.entityToDto(findAll);
     }
 
-    public EmployeeDTO findEmployeeById(Long id){
-        Employee employee = employeeRepository.findById(id).orElse(null);
+    public EmployeeDTO findEmployeeById(Long id) {
+        Employee employee = employeeRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException(String.format("Employee with id %d doesn't exist!", id)));
         return employeeMapper.entityToDto(employee);
     }
 
