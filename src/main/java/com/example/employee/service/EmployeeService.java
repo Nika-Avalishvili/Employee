@@ -1,5 +1,6 @@
 package com.example.employee.service;
 
+import com.example.employee.exceptionHandler.EmployeeNotFoundException;
 import com.example.employee.model.Employee;
 import com.example.employee.model.EmployeeDTO;
 import com.example.employee.model.EmployeeMapper;
@@ -36,7 +37,7 @@ public class EmployeeService {
 
     public EmployeeDTO findEmployeeById(Long id) {
         Employee employee = employeeRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException(String.format("Employee with id %d doesn't exist!", id)));
+                .orElseThrow(EmployeeNotFoundException::new);
         return employeeMapper.entityToDto(employee);
     }
 

@@ -10,9 +10,9 @@ import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @RestControllerAdvice
-public class EmployeeExceptionHandler extends ResponseEntityExceptionHandler {
+public class EmployeeNotFoundExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(value = {IllegalArgumentException.class})
+    @ExceptionHandler(value = {EmployeeNotFoundException.class})
     protected ResponseEntity<Object> handleConflict(RuntimeException ex, WebRequest request) {
 
         String pathVariables = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE, 0);
@@ -24,6 +24,6 @@ public class EmployeeExceptionHandler extends ResponseEntityExceptionHandler {
         String bodyOfResponse = String.format("Employee with %s_id %s doesn't exist!", firstPath, secondPath);
 
         return handleExceptionInternal(ex, bodyOfResponse,
-                new HttpHeaders(), HttpStatus.CONFLICT, request);
+                new HttpHeaders(), HttpStatus.NOT_FOUND, request);
     }
 }
