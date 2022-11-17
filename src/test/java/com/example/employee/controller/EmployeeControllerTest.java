@@ -97,8 +97,13 @@ class EmployeeControllerTest {
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
 
+        mockMvc.perform(MockMvcRequestBuilders.get("/employee/{id}", 1200L))
+                .andExpect(status().is4xxClientError())
+                .andReturn().getResponse().getContentAsString();
+
         EmployeeDTO actualEmployeeDTO = objectMapper.readValue(responseAsAString, new TypeReference<>() {
         });
+
 
         assertThat(actualEmployeeDTO)
                 .usingRecursiveComparison()
