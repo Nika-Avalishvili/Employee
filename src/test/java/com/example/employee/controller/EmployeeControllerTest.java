@@ -107,6 +107,26 @@ class EmployeeControllerTest {
     }
 
     @Test
+    void getEmployeeByIdNotFoundTest() throws Exception {
+        EmployeeDTO employeeDTO = EmployeeDTO.builder()
+                .firstName("Nika")
+                .lastName("Avalishvili")
+                .department("Business development")
+                .positions("Business builder")
+                .email("avalishvili.nick@gmail.com")
+                .isActive(true)
+                .isPensionsPayer(true)
+                .build();
+        Long id = employeeService.createAndUpdateEmployee(employeeDTO).getId();
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/employee/{id}", id))
+                .andExpect(status().is(200));
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/employee/{id}", 1500L))
+                .andExpect(status().is(404));
+    }
+
+    @Test
     void addOrUpdateEmployee() throws Exception {
         EmployeeDTO employeeDTO = EmployeeDTO.builder()
                 .firstName("Harry")
@@ -176,6 +196,5 @@ class EmployeeControllerTest {
 
         EmployeeDTO actualEmployeeDTO = actualEmployeeDTOList.stream().findFirst().orElseThrow();
         assertThat(actualEmployeeDTO).usingRecursiveComparison().ignoringFields("id").isEqualTo(employeeDTO2);
-
     }
 }

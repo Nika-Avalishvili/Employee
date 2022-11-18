@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 @Component
 public class EmployeeMapper {
-    public EmployeeDTO entityToDto(Employee employee){
+    public EmployeeDTO entityToDto(Employee employee) {
         EmployeeDTO employeeDTO = EmployeeDTO.builder()
                 .id(employee.getId())
                 .firstName(employee.getFirstName())
@@ -20,11 +20,11 @@ public class EmployeeMapper {
         return employeeDTO;
     }
 
-    public List<EmployeeDTO> entityToDto(List<Employee> employees){
+    public List<EmployeeDTO> entityToDto(List<Employee> employees) {
         return employees.stream().map(this::entityToDto).collect(Collectors.toList());
     }
 
-    public Employee dtoToEntity(EmployeeDTO employeeDTO){
+    public Employee dtoToEntity(EmployeeDTO employeeDTO) {
         Employee employee = Employee.builder()
                 .id(employeeDTO.getId())
                 .firstName(employeeDTO.getFirstName())
@@ -38,7 +38,7 @@ public class EmployeeMapper {
         return employee;
     }
 
-    public List<Employee> dtoToEntity(List<EmployeeDTO> employeeDTO){
+    public List<Employee> dtoToEntity(List<EmployeeDTO> employeeDTO) {
         return employeeDTO.stream().map(this::dtoToEntity).collect(Collectors.toList());
     }
 }

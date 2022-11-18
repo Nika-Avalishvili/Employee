@@ -15,17 +15,17 @@ public class EmployeeController {
     private final EmployeeService employeeService;
 
     @PostMapping
-    public @ResponseBody EmployeeDTO addEmployee(@RequestBody EmployeeDTO employeeDTO){
+    public @ResponseBody EmployeeDTO addEmployee(@RequestBody EmployeeDTO employeeDTO) {
         return employeeService.createAndUpdateEmployee(employeeDTO);
     }
 
     @PutMapping
-    public EmployeeDTO updateEmployee(@RequestBody EmployeeDTO employeeDTO){
+    public EmployeeDTO updateEmployee(@RequestBody EmployeeDTO employeeDTO) {
         return employeeService.createAndUpdateEmployee(employeeDTO);
     }
 
     @GetMapping
-    public List<EmployeeDTO> getAllEmployees(){
+    public List<EmployeeDTO> getAllEmployees() {
         return employeeService.findAllEmployees();
     }
 
@@ -35,7 +35,7 @@ public class EmployeeController {
     }
 
     @DeleteMapping
-    public void deleteEmployee(@RequestParam (value = "id") Long id) {
+    public void deleteEmployee(@RequestParam(value = "id") Long id) {
         employeeService.deleteEmployee(id);
     }
 }
