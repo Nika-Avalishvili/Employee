@@ -3,6 +3,7 @@ package com.example.employee.service;
 import com.example.employee.model.Employee;
 import com.example.employee.model.EmployeeDTO;
 import com.example.employee.model.EmployeeMapper;
+import com.example.employee.rabbitMQ.EmployeeConfig;
 import com.example.employee.repository.EmployeeRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,6 +12,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.amqp.rabbit.connection.CorrelationData;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -27,10 +30,13 @@ class EmployeeServiceTest {
     EmployeeMapper employeeMapper;
     EmployeeService employeeService;
 
+    @Mock
+    RabbitTemplate template;
+
     @BeforeEach
     void setUp(){
         employeeMapper = new EmployeeMapper();
-        employeeService = new EmployeeService(employeeRepository, employeeMapper);
+        employeeService = new EmployeeService(employeeRepository, employeeMapper, template);
     }
 
     @Test
