@@ -95,12 +95,18 @@
             <version>2.5.0</version>
             <scope>test</scope>
         </dependency>
-
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>postgresql</artifactId>
             <version>1.17.5</version>
             <scope>test</scope>
+        </dependency>
+
+        <!--RabbitMQ-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-stream-rabbit</artifactId>
+            <version>3.2.6</version>
         </dependency>
 
     </dependencies>
