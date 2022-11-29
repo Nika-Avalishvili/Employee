@@ -6,20 +6,25 @@ import com.example.employee.model.EmployeeDTO;
 import com.example.employee.model.EmployeeMapper;
 import com.example.employee.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class EmployeeService {
     private final EmployeeRepository employeeRepository;
     private final EmployeeMapper employeeMapper;
-
+    private final StreamBridge streamBridge;
+    
     public EmployeeDTO createAndUpdateEmployee(EmployeeDTO employeeDTO) {
-        Employee employee = employeeMapper.dtoToEntity(employeeDTO);
-        employeeRepository.save(employee);
-        return employeeMapper.entityToDto(employee);
+        Employee employee = employeeRepository.save(employeeMapper.dtoToEntity(employeeDTO));
+        EmployeeDTO updatedEmployeeDTO = employeeMapper.entityToDto(employee);
+        streamBridge.send("employee-out-0", updatedEmployeeDTO);
+        return updatedEmployeeDTO;
     }
 
     public void deleteEmployee(Long id) {

@@ -11,6 +11,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.cloud.stream.function.StreamBridge;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -24,19 +25,22 @@ class EmployeeServiceTest {
 
     @Mock
     EmployeeRepository employeeRepository;
+
+    @Mock
+    StreamBridge streamBridge;
     EmployeeMapper employeeMapper;
     EmployeeService employeeService;
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         employeeMapper = new EmployeeMapper();
-        employeeService = new EmployeeService(employeeRepository, employeeMapper);
+        employeeService = new EmployeeService(employeeRepository, employeeMapper, streamBridge);
     }
 
     @Test
     void createAndUpdateEmployee() {
-        EmployeeDTO employeeDTO = new EmployeeDTO(1L, "Ilia","Tchavtchavadze", "Education", "Founder of education council", "ilia.tchavtchavadze@gmail.com", true, true);
-        Mockito.when(employeeRepository.save(any())).thenAnswer( invocationOnMock -> invocationOnMock.getArgument(0));
+        EmployeeDTO employeeDTO = new EmployeeDTO(1L, "Ilia", "Tchavtchavadze", "Education", "Founder of education council", "ilia.tchavtchavadze@gmail.com", true, true);
+        Mockito.when(employeeRepository.save(any())).thenAnswer(invocationOnMock -> invocationOnMock.getArgument(0));
 
         EmployeeDTO actualDTO = employeeService.createAndUpdateEmployee(employeeDTO);
 
@@ -46,11 +50,9 @@ class EmployeeServiceTest {
 
     @Test
     void findAllEmployees() {
-        Employee emp1 = new Employee(5L,"Nika","Avalishvili","D1","P1","as@gmail.com",true, true);
-        Employee emp2 = new Employee(6L,"Giorgi","Margvelashvili","D2","P2","as@gmail.com",true, true);
-        Mockito.when(employeeRepository.findAll()).thenReturn(List.of(emp1,emp2));
-
-
+        Employee emp1 = new Employee(5L, "Nika", "Avalishvili", "D1", "P1", "as@gmail.com", true, true);
+        Employee emp2 = new Employee(6L, "Giorgi", "Margvelashvili", "D2", "P2", "as@gmail.com", true, true);
+        Mockito.when(employeeRepository.findAll()).thenReturn(List.of(emp1, emp2));
         Assertions.assertEquals(2, employeeService.findAllEmployees().size());
         System.out.println("Find All Employees test passed successfully!");
     }
@@ -58,22 +60,22 @@ class EmployeeServiceTest {
 
     @Test
     void findEmployeeById() {
-        Employee emp1 = new Employee(5L,"Nika","Avalishvili","D1","P1","as@gmail.com",true, true);
-        Employee emp2 = new Employee(6L,"Giorgi","Margvelashvili","D2","P2","as@gmail.com",true, true);
+        Employee emp1 = new Employee(5L, "Nika", "Avalishvili", "D1", "P1", "as@gmail.com", true, true);
+        Employee emp2 = new Employee(6L, "Giorgi", "Margvelashvili", "D2", "P2", "as@gmail.com", true, true);
 
         Mockito.when(employeeRepository.findById(anyLong())).thenAnswer(invocationOnMock -> Stream.of(emp1, emp2).filter(e -> e.getId().equals(invocationOnMock.getArgument(0))).findFirst());
 
-        Assertions.assertEquals("Avalishvili",employeeService.findEmployeeById(5L).getLastName());
-        Assertions.assertEquals("Giorgi",employeeService.findEmployeeById(6L).getFirstName());
+        Assertions.assertEquals("Avalishvili", employeeService.findEmployeeById(5L).getLastName());
+        Assertions.assertEquals("Giorgi", employeeService.findEmployeeById(6L).getFirstName());
 
         System.out.println("Find Employee by id test passed successfully!");
     }
 
     @Test
     void deleteEmployee() {
-        Employee emp1 = new Employee(5L,"Nika","Avalishvili","D1","P1","as@gmail.com",true, true);
+        Employee emp1 = new Employee(5L, "Nika", "Avalishvili", "D1", "P1", "as@gmail.com", true, true);
         employeeService.deleteEmployee(5L);
-        Mockito.verify(employeeRepository,times(1)).deleteById(5L);
+        Mockito.verify(employeeRepository, times(1)).deleteById(5L);
 
         System.out.println("Delete Employee test passed successfully!");
     }
