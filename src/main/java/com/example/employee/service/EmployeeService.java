@@ -25,6 +25,7 @@ public class EmployeeService {
     public EmployeeDTO createAndUpdateEmployee(EmployeeDTO employeeDTO) {
         Employee employee = employeeMapper.dtoToEntity(employeeDTO);
         employeeRepository.save(employee);
+        employeeDTO.setId(employee.getId());
         streamBridge.send("employee-out-0", employeeDTO);
         return employeeMapper.entityToDto(employee);
     }
