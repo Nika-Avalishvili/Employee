@@ -19,15 +19,12 @@ public class EmployeeService {
     private final EmployeeRepository employeeRepository;
     private final EmployeeMapper employeeMapper;
     private final StreamBridge streamBridge;
-
-
-
+    
     public EmployeeDTO createAndUpdateEmployee(EmployeeDTO employeeDTO) {
-        Employee employee = employeeMapper.dtoToEntity(employeeDTO);
-        employeeRepository.save(employee);
-        employeeDTO.setId(employee.getId());
-        streamBridge.send("employee-out-0", employeeDTO);
-        return employeeMapper.entityToDto(employee);
+        Employee employee = employeeRepository.save(employeeMapper.dtoToEntity(employeeDTO));
+        EmployeeDTO updatedEmployeeDTO = employeeMapper.entityToDto(employee);
+        streamBridge.send("employee-out-0", updatedEmployeeDTO);
+        return updatedEmployeeDTO;
     }
 
     public void deleteEmployee(Long id) {
